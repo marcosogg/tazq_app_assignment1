@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="edittext_height">48dp</dimen>
+    <dimen name="button_padding">8dp</dimen>
+    <dimen name="button_margin">16dp</dimen>
+</resources>
