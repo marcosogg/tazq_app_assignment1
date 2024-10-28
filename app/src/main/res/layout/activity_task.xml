@@ -2,41 +2,30 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background"
-    tools:context="org.wit.tazq_app.activities.TaskActivity">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:fitsSystemWindows="true"
-        app:elevation="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        app:elevation="0dip"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarAdd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:titleTextColor="@color/textPrimary"
-            android:title="@string/app_name" />
+            app:titleTextColor="@color/colorOnPrimary"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:fillViewport="true"
-        android:background="@color/background"
-        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,40 +33,45 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <EditText
-                android:id="@+id/taskTitle"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/edittext_height"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:autofillHints="none"
-                android:hint="@string/hint_taskTitle"
-                android:inputType="text"
-                android:maxLength="25"
-                android:maxLines="1"
-                android:padding="8dp"
-                android:textColor="@color/textSecondary"
-                android:textSize="16sp"
-                android:background="@drawable/edittext_background" />
+                android:hint="@string/hint_taskTitle">
 
-            <EditText
-                android:id="@+id/description"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/taskTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="25"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/edittext_height"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:hint="@string/hint_taskDescription"
-                android:inputType="textMultiLine"
-                android:maxLength="200"
-                android:padding="8dp"
-                android:textColor="@color/textSecondary"
-                android:textSize="16sp"
-                android:background="@drawable/edittext_background" />
+                android:hint="@string/hint_taskDescription">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/taskDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:maxLines="3"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnAdd"
-                style="@style/PrimaryButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@color/colorPrimary"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:text="@string/button_addTask"
-                android:contentDescription="@string/desc_add_task" />
+                android:textColor="@color/colorOnPrimary"
+                android:textSize="16sp"/>
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

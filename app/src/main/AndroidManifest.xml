@@ -11,31 +11,32 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Theme.TAZQ"
         tools:targetApi="31">
 
-        <!-- TaskListActivity as the launcher -->
+        <!-- SplashActivity as the launcher -->
         <activity
-            android:name=".activities.TaskListActivity"
-            android:exported="true">
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- TaskActivity (no longer the launcher) -->
+        <!-- TaskListActivity (no longer the launcher) -->
+        <activity
+            android:name=".activities.TaskListActivity"
+            android:exported="true">
+        </activity>
+
+        <!-- TaskActivity -->
         <activity
             android:name=".activities.TaskActivity"
             android:exported="true">
         </activity>
 
-        <!-- Keep SplashActivity but remove launcher intent filter -->
-        <activity
-            android:name=".SplashActivity"
-            android:exported="true"
-            android:theme="@style/SplashTheme">
-        </activity>
     </application>
 
 </manifest>

@@ -10,10 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.tazq_app.R
 import org.wit.tazq_app.adapters.TaskAdapter
+import org.wit.tazq_app.adapters.TaskListener
 import org.wit.tazq_app.databinding.ActivityTaskListBinding
 import org.wit.tazq_app.main.MainApp
+import org.wit.tazq_app.models.TaskModel
 
-class TaskListActivity : AppCompatActivity() {
+class TaskListActivity : AppCompatActivity(), TaskListener {
+
     private lateinit var binding: ActivityTaskListBinding
     lateinit var app: MainApp
 
@@ -28,7 +31,7 @@ class TaskListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = TaskAdapter(app.tasks)
+        binding.recyclerView.adapter = TaskAdapter(app.tasks.findAll(), this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -51,8 +54,27 @@ class TaskListActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                (binding.recyclerView.adapter)?.
-                notifyItemRangeChanged(0, app.tasks.size)
+                binding.recyclerView.adapter?.notifyItemRangeChanged(0, app.tasks.findAll().size)
+            }
+        }
+
+    override fun onTaskClick(task: TaskModel) {
+        val launcherIntent = Intent(this, TaskActivity::class.java)
+        launcherIntent.putExtra("task_edit", task)
+        getClickResult.launch(launcherIntent)
+    }
+
+    override fun onTaskCheckChanged(task: TaskModel, isChecked: Boolean) {
+        task.isCompleted = isChecked
+        app.tasks.update(task)
+    }
+
+    private val getClickResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                binding.recyclerView.adapter?.notifyItemRangeChanged(0, app.tasks.findAll().size)
             }
         }
 }

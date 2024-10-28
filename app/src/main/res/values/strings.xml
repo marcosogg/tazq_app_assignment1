@@ -3,9 +3,11 @@
     <string name="app_name">TAZQ App</string>
     <string name="button_addTask">Add Task</string>
     <string name="hint_taskTitle">Task Title</string>
+    <string name="button_saveTask">Save Task</string>
     <string name="hint_taskDescription">Task Description</string>
     <string name="desc_add_task">Add Task</string>
     <string name="desc_splash_logo">App Logo</string>
     <string name="menu_addTask">Add Task</string>
     <string name="menu_cancelTask">Cancel</string>
+    <string name="enter_task_title">Please Enter a Task Title</string>
 </resources>

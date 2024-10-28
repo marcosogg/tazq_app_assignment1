@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import org.wit.tazq_app.activities.TaskActivity
+import org.wit.tazq_app.activities.TaskListActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -16,8 +16,8 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.splash_screen)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            // Start the main activity
-            val intent = Intent(this@SplashActivity, TaskActivity::class.java)
+            // Start the TaskListActivity
+            val intent = Intent(this@SplashActivity, TaskListActivity::class.java)
             startActivity(intent)
             finish()
         }, splashTimeOut)
