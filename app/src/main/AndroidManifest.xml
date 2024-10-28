@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".main.MainApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,22 +14,27 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
 
-        <!-- SplashActivity as the launcher (if implemented) -->
+        <!-- TaskListActivity as the launcher -->
         <activity
-            android:name=".SplashActivity"
-            android:exported="true"
-            android:theme="@style/SplashTheme">
+            android:name=".activities.TaskListActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- TaskActivity -->
+        <!-- TaskActivity (no longer the launcher) -->
         <activity
-            android:name=".TaskActivity"
+            android:name=".activities.TaskActivity"
             android:exported="true">
+        </activity>
+
+        <!-- Keep SplashActivity but remove launcher intent filter -->
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
         </activity>
     </application>
 
