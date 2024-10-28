@@ -10,4 +10,5 @@
     <string name="menu_addTask">Add Task</string>
     <string name="menu_cancelTask">Cancel</string>
     <string name="enter_task_title">Please Enter a Task Title</string>
+    <string name="save_task">Save Task</string>
 </resources>

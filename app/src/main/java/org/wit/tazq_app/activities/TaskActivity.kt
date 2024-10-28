@@ -15,10 +15,10 @@ class TaskActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTaskBinding
     var task = TaskModel()
     lateinit var app: MainApp
-    var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var edit = false
         binding = ActivityTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbarAdd.title = title
@@ -30,7 +30,7 @@ class TaskActivity : AppCompatActivity() {
             task = intent.extras?.getParcelable("task_edit")!!
             binding.taskTitle.setText(task.title)
             binding.taskDescription.setText(task.description)
-            binding.btnAdd.setText(R.string.button_saveTask)
+            binding.btnAdd.setText(R.string.save_task)
         }
 
         binding.btnAdd.setOnClickListener() {
