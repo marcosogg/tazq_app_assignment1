@@ -59,6 +59,19 @@
                 android:textSize="16sp"
                 android:background="@drawable/edittext_background" />
 
+            <EditText
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext_height"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/hint_taskDescription"
+                android:inputType="textMultiLine"
+                android:maxLength="200"
+                android:padding="8dp"
+                android:textColor="@color/textSecondary"
+                android:textSize="16sp"
+                android:background="@drawable/edittext_background" />
+
             <Button
                 android:id="@+id/btnAdd"
                 style="@style/PrimaryButton"

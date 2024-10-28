@@ -1,3 +1,4 @@
+<!-- /app/src/main/res/values/themes.xml -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Tazq_app" parent="Theme.Material3.DayNight.NoActionBar">
@@ -10,7 +11,7 @@
 
     <style name="Theme.Tazq_app" parent="Base.Theme.Tazq_app" />
 
-    <!-- Splash Theme -->
+    <!-- Splash Theme (if applicable) -->
     <style name="SplashTheme" parent="Base.Theme.Tazq_app">
         <item name="android:windowBackground">@drawable/splash_screen_background</item>
     </style>
