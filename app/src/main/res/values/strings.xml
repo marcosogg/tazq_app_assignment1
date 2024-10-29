@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Existing strings -->
+    <!-- App & Navigation -->
     <string name="app_name">TAZQ App</string>
-    <string name="button_addTask">Add Task</string>
-    <string name="hint_taskTitle">Task Title</string>
-    <string name="button_saveTask">Save Task</string>
-    <string name="hint_taskDescription">Task Description</string>
-    <string name="desc_add_task">Add Task</string>
-    <string name="desc_splash_logo">App Logo</string>
     <string name="menu_addTask">Add Task</string>
     <string name="menu_cancelTask">Cancel</string>
-    <string name="enter_task_title">Please Enter a Task Title</string>
-    <string name="select_task_image">Select Task Image</string>
 
-    <!-- Location and Due Date strings -->
+    <!-- Task Management -->
+    <string name="button_addTask">Add Task</string>
+    <string name="button_saveTask">Save Task</string>
+    <string name="button_deleteTask">Delete Task</string>
+    <string name="hint_taskTitle">Task Title</string>
+    <string name="hint_taskDescription">Description</string>
+    <string name="enter_task_title">Please Enter a Task Title</string>
+
+    <!-- Location Features -->
     <string name="button_setLocation">Set Location</string>
-    <string name="button_setDueDate">Set Due Date</string>
     <string name="select_task_location">Select Task Location</string>
     <string name="title_activity_map">Select Location</string>
+    <string name="location_permission_required">Location permission is required to use this feature</string>
+
+    <!-- Date Selection -->
+    <string name="button_setDueDate">Set Due Date</string>
     <string name="select_task_due_date">Select Due Date</string>
-    <string name="location_permission_required">Location permission is required</string>
+    <string name="due_date_display">Due: %1$s</string>
+
+    <!-- Image Management -->
+    <string name="button_addImage">Add Image</string>
+    <string name="select_task_image">Select Task Image</string>
+    <string name="change_task_image">Change Image</string>
+
+    <!-- Descriptions -->
+    <string name="desc_task_image">Task Image</string>
+    <string name="desc_add_task">Add Task</string>
+    <string name="desc_splash_logo">App Logo</string>
+
+    <!-- Messages -->
+    <string name="task_saved">Task saved successfully</string>
+    <string name="task_deleted">Task deleted</string>
+    <string name="invalid_task">Please check all fields are filled correctly</string>
 </resources>

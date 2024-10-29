@@ -1,18 +1,18 @@
 package org.wit.tazq_app.main
 
 import android.app.Application
-import org.wit.tazq_app.models.TaskMemStore
+import org.wit.tazq_app.models.TaskJSONStore
+import org.wit.tazq_app.models.TaskStore
 import timber.log.Timber
-import timber.log.Timber.i
 
 class MainApp : Application() {
 
-    lateinit var tasks: TaskMemStore
+    lateinit var tasks: TaskStore
 
     override fun onCreate() {
         super.onCreate()
-        tasks = TaskMemStore()
+        tasks = TaskJSONStore(applicationContext)
         Timber.plant(Timber.DebugTree())
-        i("TAZQ App started")
+        Timber.i("TAZQ App started")
     }
 }

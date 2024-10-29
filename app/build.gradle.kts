@@ -42,19 +42,27 @@ android {
 }
 
 dependencies {
-
+    // AndroidX Dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
-    implementation(libs.timber)
+    // Google Services & Maps
+    implementation(libs.play.services.maps)
 
+    // Images & UI
+    implementation("com.squareup.picasso:picasso:2.71828")
+
+    // JSON Parsing
+    implementation("com.google.code.gson:gson:2.10.1")
+
+    // Logging
+    implementation("com.jakewharton.timber:timber:5.0.1")
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("com.squareup.picasso:picasso:2.71828")
-
-    implementation(libs.play.services.maps)
 }

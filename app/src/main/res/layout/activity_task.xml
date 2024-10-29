@@ -63,12 +63,35 @@
                     android:maxLines="3"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Image Selection -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:id="@+id/taskImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="@string/select_task_image"/>
+
+                <Button
+                    android:id="@+id/chooseImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/button_addImage"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+            </LinearLayout>
+
+            <!-- Due Date Selection -->
             <Button
                 android:id="@+id/taskDueDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:background="?attr/selectableItemBackground"
                 android:drawableStart="@drawable/ic_calendar"
                 android:drawablePadding="8dp"
                 android:gravity="start|center_vertical"
@@ -77,12 +100,12 @@
                 android:textColor="?android:textColorPrimary"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
+            <!-- Location Selection -->
             <Button
                 android:id="@+id/taskLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:background="?attr/selectableItemBackground"
                 android:drawableStart="@drawable/ic_location"
                 android:drawablePadding="8dp"
                 android:gravity="start|center_vertical"
@@ -91,6 +114,7 @@
                 android:textColor="?android:textColorPrimary"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
+            <!-- Add/Save Button -->
             <Button
                 android:id="@+id/btnAdd"
                 android:layout_width="match_parent"

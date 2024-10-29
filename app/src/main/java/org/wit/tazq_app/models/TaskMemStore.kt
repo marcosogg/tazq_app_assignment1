@@ -1,6 +1,6 @@
 package org.wit.tazq_app.models
 
-import timber.log.Timber.i
+import timber.log.Timber
 
 private var lastId = 0L
 
@@ -12,7 +12,12 @@ class TaskMemStore : TaskStore {
     private val tasks = ArrayList<TaskModel>()
 
     override fun findAll(): List<TaskModel> {
+        logAll()
         return tasks
+    }
+
+    override fun findById(id: Long): TaskModel? {
+        return tasks.find { it.id == id }
     }
 
     override fun create(task: TaskModel) {
@@ -21,7 +26,6 @@ class TaskMemStore : TaskStore {
         logAll()
     }
 
-    // models/TaskMemStore.kt
     override fun update(task: TaskModel) {
         val foundTask = findById(task.id)
         if (foundTask != null) {
@@ -30,6 +34,7 @@ class TaskMemStore : TaskStore {
             foundTask.isCompleted = task.isCompleted
             foundTask.dueDate = task.dueDate
             foundTask.image = task.image
+            foundTask.location = task.location
             logAll()
         }
     }
@@ -39,12 +44,8 @@ class TaskMemStore : TaskStore {
         logAll()
     }
 
-    override fun findById(id: Long): TaskModel? {
-        return tasks.find { it.id == id }
-    }
-
     private fun logAll() {
-        i("Task Store Contents:")
-        tasks.forEach { i("Task: $it") }
+        Timber.i("Task Store Contents:")
+        tasks.forEach { Timber.i("Task: $it") }
     }
 }
