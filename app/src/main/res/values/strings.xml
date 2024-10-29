@@ -11,4 +11,6 @@
     <string name="menu_cancelTask">Cancel</string>
     <string name="enter_task_title">Please Enter a Task Title</string>
     <string name="save_task">Save Task</string>
+    <string name="button_addImage">Add Image</string>
+    <string name="select_task_image">Add Task Image (bill/screenshot/document)</string>
 </resources>
