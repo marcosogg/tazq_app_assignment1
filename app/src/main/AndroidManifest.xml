@@ -29,6 +29,8 @@
         <!-- Register TaskDetailActivity -->
         <activity android:name=".activities.TaskDetailActivity" />
 
+        <activity android:name=".activities.TaskActivity" />
+
     </application>
 
 </manifest>
