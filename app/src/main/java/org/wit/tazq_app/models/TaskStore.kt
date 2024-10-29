@@ -6,4 +6,6 @@ interface TaskStore {
     fun update(task: TaskModel)
     fun delete(task: TaskModel)
     fun findById(id: Long): TaskModel?
+
+    fun deleteAll()
 }

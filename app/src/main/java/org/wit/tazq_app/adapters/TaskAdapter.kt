@@ -33,6 +33,11 @@ class TaskAdapter(
 
     override fun getItemCount(): Int = tasks.size
 
+    fun updateTasks(newTasks: List<TaskModel>) {
+        tasks = newTasks
+        notifyDataSetChanged()
+    }
+
     class MainHolder(private val binding: CardTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -46,7 +51,7 @@ class TaskAdapter(
                     val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
                     tvTaskDueDate.text = sdf.format(Date(timestamp))
                 } ?: run {
-                    tvTaskDueDate.text = "No Due Date" // No need for View import
+                    tvTaskDueDate.text = "No Due Date"
                 }
 
                 root.setOnClickListener { listener.onTaskClick(task) }

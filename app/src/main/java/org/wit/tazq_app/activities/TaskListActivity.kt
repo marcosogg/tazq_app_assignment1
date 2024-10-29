@@ -1,6 +1,7 @@
 package org.wit.tazq_app.activities
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -12,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import org.wit.tazq_app.R
 import org.wit.tazq_app.adapters.TaskAdapter
 import org.wit.tazq_app.adapters.TaskListener
@@ -25,6 +27,7 @@ class TaskListActivity : AppCompatActivity(), TaskListener {
     lateinit var app: MainApp
     private var allTasks: List<TaskModel> = listOf()
     private var filteredTasks: List<TaskModel> = listOf()
+    private lateinit var taskAdapter: TaskAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +40,13 @@ class TaskListActivity : AppCompatActivity(), TaskListener {
 
         setupSpinner()
         setupFab()
-
+        setupRecyclerView()
         loadTasks()
     }
 
+    /**
+     * Sets up the filter spinner with options and listeners.
+     */
     private fun setupSpinner() {
         val spinner = binding.spinnerFilter
         val adapter = ArrayAdapter.createFromResource(
@@ -72,6 +78,9 @@ class TaskListActivity : AppCompatActivity(), TaskListener {
         }
     }
 
+    /**
+     * Sets up the FloatingActionButton to add new tasks.
+     */
     private fun setupFab() {
         val fab: FloatingActionButton = binding.fabAddTask
         fab.setOnClickListener {
@@ -80,25 +89,47 @@ class TaskListActivity : AppCompatActivity(), TaskListener {
         }
     }
 
-    private fun loadTasks() {
-        allTasks = app.tasks.findAll()
-        filterTasks("All")
+    /**
+     * Initializes the RecyclerView and its adapter.
+     */
+    private fun setupRecyclerView() {
+        taskAdapter = TaskAdapter(filteredTasks, this)
+        val layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.adapter = taskAdapter
     }
 
+    /**
+     * Loads all tasks from the data store and applies the current filter.
+     */
+    private fun loadTasks() {
+        allTasks = app.tasks.findAll()
+        val selectedFilter = binding.spinnerFilter.selectedItem?.toString() ?: "All"
+        filterTasks(selectedFilter)
+    }
+
+    /**
+     * Filters tasks based on the selected criteria.
+     *
+     * @param filter The filter criteria ("All", "Completed", "Pending", "Overdue").
+     */
     private fun filterTasks(filter: String) {
         filteredTasks = when (filter) {
             "Completed" -> allTasks.filter { it.isCompleted }
             "Pending" -> allTasks.filter { !it.isCompleted }
-            "Overdue" -> allTasks.filter { it.dueDate != null && it.dueDate!! < System.currentTimeMillis() && !it.isCompleted }
+            "Overdue" -> allTasks.filter {
+                it.dueDate != null && it.dueDate!! < System.currentTimeMillis() && !it.isCompleted
+            }
             else -> allTasks
         }
-        setupRecyclerView()
+        updateRecyclerView()
     }
 
-    private fun setupRecyclerView() {
-        val layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = TaskAdapter(filteredTasks, this)
+    /**
+     * Updates the RecyclerView with the latest filtered tasks.
+     */
+    private fun updateRecyclerView() {
+        taskAdapter.updateTasks(filteredTasks)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -106,31 +137,73 @@ class TaskListActivity : AppCompatActivity(), TaskListener {
         return super.onCreateOptionsMenu(menu)
     }
 
+    /**
+     * Handles menu item selections, including "Add Task" and "Delete All Tasks".
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, TaskActivity::class.java)
                 getResult.launch(launcherIntent)
+                true
             }
+            R.id.item_delete_all -> {
+                showDeleteAllConfirmationDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
+    /**
+     * Displays a confirmation dialog before deleting all tasks.
+     */
+    private fun showDeleteAllConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Delete All Tasks")
+            .setMessage("Are you sure you want to delete all tasks?")
+            .setPositiveButton("Yes") { dialog, _ ->
+                app.tasks.deleteAll()
+                loadTasks()
+                Snackbar.make(binding.root, "All tasks have been deleted", Snackbar.LENGTH_LONG).show()
+                dialog.dismiss()
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
+
+    /**
+     * Registers for the activity result when adding a new task.
+     */
     private val getResult =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
-        ) {
-            if (it.resultCode == Activity.RESULT_OK) {
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
                 loadTasks()
             }
         }
 
+    /**
+     * Handles task item clicks to navigate to the TaskDetailActivity.
+     *
+     * @param task The TaskModel that was clicked.
+     */
     override fun onTaskClick(task: TaskModel) {
         val launcherIntent = Intent(this, TaskDetailActivity::class.java)
         launcherIntent.putExtra("task_detail", task)
         startActivity(launcherIntent)
     }
 
+    /**
+     * Handles changes in the task completion checkbox.
+     *
+     * @param task The TaskModel that was checked/unchecked.
+     * @param isChecked The new checked state.
+     */
     override fun onTaskCheckChanged(task: TaskModel, isChecked: Boolean) {
         task.isCompleted = isChecked
         app.tasks.update(task)

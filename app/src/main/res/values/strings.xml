@@ -21,4 +21,6 @@
     <string name="error_title_length">Title cannot exceed 50 characters</string>
     <string name="error_description_length">Description cannot exceed 200 characters</string>
     <string name="error_invalid_due_date">Invalid due date</string>
+
+    <string name="menu_deleteAllTasks">Delete All Tasks</string>
 </resources>

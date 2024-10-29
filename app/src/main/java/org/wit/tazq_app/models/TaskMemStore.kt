@@ -41,6 +41,12 @@ class TaskMemStore : TaskStore {
         return tasks.find { it.id == id }
     }
 
+    // New method to delete all tasks
+    override fun deleteAll() {
+        tasks.clear()
+        logAll()
+    }
+
     private fun logAll() {
         i("Task Store Contents:")
         tasks.forEach { i("Task: $it") }
