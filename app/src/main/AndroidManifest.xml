@@ -14,7 +14,9 @@
         android:theme="@style/Theme.TAZQ"
         tools:targetApi="34">
 
-        <activity android:name=".activities.TaskListActivity"
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.TaskActivity" />
+        <activity android:name=".activities.TaskListActivity" />
 
         <!-- Register TaskDetailActivity -->
         <activity android:name=".activities.TaskDetailActivity" />
