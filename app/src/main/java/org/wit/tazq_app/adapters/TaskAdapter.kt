@@ -44,7 +44,7 @@ class TaskAdapter(
                 tvTaskDescription.text = task.description
                 cbTaskCompleted.isChecked = task.isCompleted
 
-                if (task.image != Uri.EMPTY) {
+                if (task.image.isNotEmpty()) {
                     Picasso.get()
                         .load(task.image)
                         .resize(200, 200)

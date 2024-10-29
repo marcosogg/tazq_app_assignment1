@@ -37,7 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:hint="@string/hint_taskTitle">
+                android:hint="@string/hint_taskTitle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/taskTitle"
@@ -51,7 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:hint="@string/hint_taskDescription">
+                android:hint="@string/hint_taskDescription"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/taskDescription"
@@ -61,35 +63,44 @@
                     android:maxLines="3"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Add Image Button -->
             <Button
-                android:id="@+id/chooseImage"
+                android:id="@+id/taskDueDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="@string/button_addImage"
-                android:textSize="16sp"/>
+                android:layout_marginBottom="8dp"
+                android:background="?attr/selectableItemBackground"
+                android:drawableStart="@drawable/ic_calendar"
+                android:drawablePadding="8dp"
+                android:gravity="start|center_vertical"
+                android:padding="16dp"
+                android:text="@string/button_setDueDate"
+                android:textColor="?android:textColorPrimary"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
-            <!-- Image Display -->
-            <ImageView
-                android:id="@+id/taskImage"
+            <Button
+                android:id="@+id/taskLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/select_task_image"
-                app:srcCompat="@mipmap/ic_launcher"/>
+                android:layout_marginBottom="8dp"
+                android:background="?attr/selectableItemBackground"
+                android:drawableStart="@drawable/ic_location"
+                android:drawablePadding="8dp"
+                android:gravity="start|center_vertical"
+                android:padding="16dp"
+                android:text="@string/button_setLocation"
+                android:textColor="?android:textColorPrimary"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
             <Button
                 android:id="@+id/btnAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorPrimary"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:text="@string/button_addTask"
+                android:textColor="@color/colorOnPrimary"
                 android:textSize="16sp"/>
         </LinearLayout>
     </ScrollView>

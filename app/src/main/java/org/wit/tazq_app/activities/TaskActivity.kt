@@ -1,51 +1,43 @@
 package org.wit.tazq_app.activities
 
+import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Picasso
 import org.wit.tazq_app.R
 import org.wit.tazq_app.databinding.ActivityTaskBinding
-import org.wit.tazq_app.helpers.showImagePicker
 import org.wit.tazq_app.main.MainApp
+import org.wit.tazq_app.models.Location
 import org.wit.tazq_app.models.TaskModel
 import timber.log.Timber.i
 
 class TaskActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTaskBinding
-    private lateinit var imageIntentLauncher: ActivityResultLauncher<Intent>
     var task = TaskModel()
     lateinit var app: MainApp
+    var edit = false
+    private lateinit var mapIntentLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var edit = false
         binding = ActivityTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
         app = application as MainApp
 
-        registerImagePickerCallback()
-
         if (intent.hasExtra("task_edit")) {
             edit = true
             task = intent.extras?.getParcelable("task_edit")!!
             binding.taskTitle.setText(task.title)
             binding.taskDescription.setText(task.description)
-            binding.btnAdd.setText(R.string.save_task)
-            if (task.image != Uri.EMPTY) {
-                Picasso.get()
-                    .load(task.image)
-                    .into(binding.taskImage)
-                binding.chooseImage.setText(R.string.change_task_image)
-            }
+            binding.btnAdd.setText(R.string.button_saveTask)
         }
 
         binding.btnAdd.setOnClickListener() {
@@ -65,11 +57,23 @@ class TaskActivity : AppCompatActivity() {
             }
         }
 
-        binding.chooseImage.setOnClickListener {
-            showImagePicker(imageIntentLauncher)
+        binding.taskLocation.setOnClickListener {
+            val location = Location(52.245696, -7.139102, 15f)
+            if (task.location.zoom != 0f) {
+                location.lat = task.location.lat
+                location.lng = task.location.lng
+                location.zoom = task.location.zoom
+            }
+            val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
+            mapIntentLauncher.launch(launcherIntent)
         }
 
-        i("Task Activity started...")
+        binding.taskDueDate.setOnClickListener {
+            showDatePicker()
+        }
+
+        registerMapCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -79,40 +83,39 @@ class TaskActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_cancel -> {
-                finish()
-            }
+            R.id.item_cancel -> { finish() }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun registerImagePickerCallback() {
-        imageIntentLauncher =
+    private fun registerMapCallback() {
+        mapIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             { result ->
                 when(result.resultCode) {
-                    RESULT_OK -> {
+                    Activity.RESULT_OK -> {
                         if (result.data != null) {
-                            i("Got Image Result ${result.data!!.data}")
-                            val image = result.data!!.data!!
-                            contentResolver.takePersistableUriPermission(
-                                image,
-                                Intent.FLAG_GRANT_READ_URI_PERMISSION
-                            )
-                            task.image = image
-                            Picasso.get()
-                                .load(task.image)
-                                .into(binding.taskImage)
-                            binding.chooseImage.setText(R.string.change_task_image)
+                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
+                            task.location = location
+                            i("Location: $location")
                         }
                     }
-                    RESULT_CANCELED -> {
-                        i("Image picker cancelled")
-                    }
-                    else -> {
-                        i("Image picker failed")
-                    }
+                    Activity.RESULT_CANCELED -> { }
+                    else -> { }
                 }
             }
+    }
+
+    private fun showDatePicker() {
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Select Due Date")
+            .setSelection(task.dueDate ?: MaterialDatePicker.todayInUtcMilliseconds())
+            .build()
+
+        datePicker.addOnPositiveButtonClickListener { selection ->
+            task.dueDate = selection
+        }
+
+        datePicker.show(supportFragmentManager, "DATE_PICKER")
     }
 }
