@@ -21,6 +21,7 @@ class TaskMemStore : TaskStore {
         logAll()
     }
 
+    // models/TaskMemStore.kt
     override fun update(task: TaskModel) {
         val foundTask = findById(task.id)
         if (foundTask != null) {
@@ -28,6 +29,7 @@ class TaskMemStore : TaskStore {
             foundTask.description = task.description
             foundTask.isCompleted = task.isCompleted
             foundTask.dueDate = task.dueDate
+            foundTask.image = task.image
             logAll()
         }
     }

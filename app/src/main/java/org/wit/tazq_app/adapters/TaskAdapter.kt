@@ -1,8 +1,10 @@
 package org.wit.tazq_app.adapters
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import org.wit.tazq_app.databinding.CardTaskBinding
 import org.wit.tazq_app.models.TaskModel
 import java.text.SimpleDateFormat
@@ -41,6 +43,14 @@ class TaskAdapter(
                 tvTaskTitle.text = task.title
                 tvTaskDescription.text = task.description
                 cbTaskCompleted.isChecked = task.isCompleted
+
+                if (task.image != Uri.EMPTY) {
+                    Picasso.get()
+                        .load(task.image)
+                        .resize(200, 200)
+                        .centerCrop()
+                        .into(taskIcon)
+                }
 
                 task.dueDate?.let { timestamp ->
                     val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())

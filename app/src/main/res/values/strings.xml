@@ -1,4 +1,3 @@
-<!-- /app/src/main/res/values/strings.xml -->
 <resources>
     <string name="app_name">TAZQ App</string>
     <string name="button_addTask">Add Task</string>
@@ -13,4 +12,5 @@
     <string name="save_task">Save Task</string>
     <string name="button_addImage">Add Image</string>
     <string name="select_task_image">Add Task Image (bill/screenshot/document)</string>
+    <string name="change_task_image">Change Image</string>
 </resources>

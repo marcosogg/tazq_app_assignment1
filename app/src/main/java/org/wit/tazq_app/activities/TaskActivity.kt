@@ -44,6 +44,7 @@ class TaskActivity : AppCompatActivity() {
                 Picasso.get()
                     .load(task.image)
                     .into(binding.taskImage)
+                binding.chooseImage.setText(R.string.change_task_image)
             }
         }
 
@@ -102,6 +103,7 @@ class TaskActivity : AppCompatActivity() {
                             Picasso.get()
                                 .load(task.image)
                                 .into(binding.taskImage)
+                            binding.chooseImage.setText(R.string.change_task_image)
                         }
                     }
                     RESULT_CANCELED -> {
