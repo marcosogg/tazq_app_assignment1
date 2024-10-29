@@ -23,6 +23,7 @@ class TaskActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         app = application as MainApp
 
         if (intent.hasExtra("task_edit")) {
@@ -30,25 +31,66 @@ class TaskActivity : AppCompatActivity() {
             task = intent.extras?.getParcelable("task_edit")!!
             binding.taskTitle.setText(task.title)
             binding.taskDescription.setText(task.description)
-            binding.btnAdd.setText(R.string.button_saveTask)
+            binding.btnAdd.text = getString(R.string.button_saveTask)
         }
 
-        binding.btnAdd.setOnClickListener() {
-            task.title = binding.taskTitle.text.toString()
-            task.description = binding.taskDescription.text.toString()
-            if (task.title.isEmpty()) {
-                Snackbar.make(it, R.string.enter_task_title, Snackbar.LENGTH_LONG)
-                    .show()
+        binding.btnAdd.setOnClickListener { view ->
+            val titleInput = binding.taskTitle.text.toString().trim()
+            val descriptionInput = binding.taskDescription.text.toString().trim()
+            val dueDateInput = binding.taskDueDate.text.toString().trim()
+
+            var isValid = true
+
+            // Validate Title
+            if (titleInput.isEmpty()) {
+                binding.tilTaskTitle.error = "Please enter a task title"
+                isValid = false
+            } else if (titleInput.length > 50) {
+                binding.tilTaskTitle.error = "Title cannot exceed 50 characters"
+                isValid = false
             } else {
+                binding.tilTaskTitle.error = null
+            }
+
+            // Validate Description
+            if (descriptionInput.length > 200) {
+                binding.tilTaskDescription.error = "Description cannot exceed 200 characters"
+                isValid = false
+            } else {
+                binding.tilTaskDescription.error = null
+            }
+
+            // Validate Due Date (if implemented)
+            // Assuming dueDate is input as a timestamp or specific format
+            // For simplicity, we'll skip this unless you have a date picker
+            // If dueDate is set via a DatePicker, ensure it's a valid future date
+
+            if (isValid) {
+                task.title = titleInput
+                task.description = descriptionInput
+                // Parse and set dueDate if implemented
+                // task.dueDate = parsedDate
+
                 if (edit) {
                     app.tasks.update(task.copy())
+                    i("Task updated: $task")
                 } else {
                     app.tasks.create(task.copy())
+                    i("Task created: $task")
                 }
+
                 setResult(RESULT_OK)
                 finish()
+            } else {
+                Snackbar.make(view, "Please correct the errors above", Snackbar.LENGTH_LONG)
+                    .show()
             }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -58,7 +100,9 @@ class TaskActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_cancel -> { finish() }
+            R.id.item_cancel -> {
+                finish()
+            }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -45,6 +45,8 @@ class TaskAdapter(
                 task.dueDate?.let { timestamp ->
                     val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
                     tvTaskDueDate.text = sdf.format(Date(timestamp))
+                } ?: run {
+                    tvTaskDueDate.text = "No Due Date" // No need for View import
                 }
 
                 root.setOnClickListener { listener.onTaskClick(task) }

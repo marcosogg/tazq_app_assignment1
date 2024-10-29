@@ -10,4 +10,15 @@
     <string name="menu_addTask">Add Task</string>
     <string name="menu_cancelTask">Cancel</string>
     <string name="enter_task_title">Please Enter a Task Title</string>
+    <string-array name="task_filter_options">
+        <item>All</item>
+        <item>Completed</item>
+        <item>Pending</item>
+        <item>Overdue</item>
+    </string-array>
+    <!-- New strings for validation -->
+    <string name="error_title_empty">Please enter a task title</string>
+    <string name="error_title_length">Title cannot exceed 50 characters</string>
+    <string name="error_description_length">Description cannot exceed 200 characters</string>
+    <string name="error_invalid_due_date">Invalid due date</string>
 </resources>
