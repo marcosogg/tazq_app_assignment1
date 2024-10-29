@@ -142,11 +142,6 @@ class TaskListActivity : AppCompatActivity(), TaskListener {
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.item_add -> {
-                val launcherIntent = Intent(this, TaskActivity::class.java)
-                getResult.launch(launcherIntent)
-                true
-            }
             R.id.item_delete_all -> {
                 showDeleteAllConfirmationDialog()
                 true

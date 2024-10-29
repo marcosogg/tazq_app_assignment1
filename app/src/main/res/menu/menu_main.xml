@@ -2,13 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/item_add"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="@string/menu_addTask"
-        app:showAsAction="always" />
-
-    <!-- New "Delete All" menu item -->
+    <!-- Retain only the "Delete All Tasks" menu item -->
     <item
         android:id="@+id/item_delete_all"
         android:icon="@android:drawable/ic_menu_delete"
